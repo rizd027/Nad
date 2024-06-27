@@ -1,0 +1,185 @@
+/* Reset and base styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #AAD7D9; 
+}
+
+header {
+    background-color: rgba(146, 199, 207, 0.85); /* Warna biru muda dengan alpha 0.85 */
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px); /* Efek blur untuk tampilan modern */
+    border-radius: 0 0 20px 20px; /* Atur border-radius untuk pojok bulat */
+    transition: background-color 0.3s ease; /* Efek transisi untuk background-color */
+}
+
+header.scrolled {
+    background-color: rgba(146, 199, 207, 0.95); /* Ubah alpha untuk membuat header lebih solid saat di-scroll */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Posisi navigasi ke tengah */
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+    font-family: 'Montserrat', sans-serif; /* Menggunakan font Montserrat */
+    font-weight: 700; /* Atur tebal (bold), bisa juga menggunakan 900 untuk black */
+}
+
+
+nav ul li a:hover {
+    color: #007bff;
+}
+
+main {
+    padding-top: 0; /* Sesuaikan dengan tinggi header Anda */
+	scroll-margin-top: 0;
+}
+
+/* Contoh animasi parallax pada judul */
+.section {
+    height: 600px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px); /* Mulai dengan translasi ke bawah */
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section.active {
+    opacity: 1;
+    transform: translateY(0); /* Kembali ke posisi normal */
+}
+
+/* Gaya untuk konten utama */
+.home-content, .objective-grid, .skills-grid, .karya-grid, .languages-grid {
+    background-color: #AAD7D9;
+	height: auto;
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: auto; /* Lebar konten */
+    max-width: auto; /* Maksimum lebar konten */
+    margin: 20px auto; /* Posisi tengah */
+}
+
+/* Gaya untuk gambar profil */
+.profile-img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.profile-img:hover {
+    transform: scale(1.1); /* Memperbesar sedikit pada hover */
+}
+
+/* Gaya untuk detail profil */
+.profile-details {
+    text-align: center;
+}
+
+.profile-details h1 {
+    font-size: 2.5em;
+    margin: 10px 0 5px;
+}
+
+.profile-details h2 {
+    font-size: 1.8em;
+    margin: 5px 0 10px;
+    color: #777;
+}
+
+.profile-details ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1em;
+}
+
+.profile-details ul li {
+    margin-bottom: 10px;
+}
+
+/* Grid untuk keterampilan, perangkat lunak, dan bahasa */
+.skills-grid, .karya-grid, .languages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.skill, .karya, .language {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.skill:hover, .karya:hover, .language:hover {
+    transform: scale(1.05); /* Memperbesar sedikit pada hover */
+    background-color: #f0f0f0; /* Mencerahkan latar belakang pada hover */
+}
+
+.skill i, .karya i, .language i {
+    font-size: 50px;
+    color: #555;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+}
+
+.skill:hover i, .karya:hover i, .language:hover i {
+    color: #333; /* Memperdalam warna ikon pada hover */
+}
+
+/* Gaya untuk footer */
+footer {
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    main {
+        padding-top: 150px; /* Adjust for smaller screens */
+    }
+
+    .skills-grid, .karya-grid, .languages-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
