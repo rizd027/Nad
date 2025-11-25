@@ -1,98 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eka Nadia Aprillina - Graphic Designer & Illustrator</title>
+    <meta name="description"
+        content="Kelola koleksi film dan donghua Anda dengan mudah menggunakan Film Table Manager yang terintegrasi dengan Google Sheets">
+    <title>Film & Donghua Table Manager</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">HOME</a></li>
-                <li><a href="#skills">SKILLS</a></li>
-                <li><a href="#karya-skills">KARYA</a></li>
-                <li><a href="#education">CONTACT</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p class="loading-text">Memuat data...</p>
+        </div>
+    </div>
 
-    <main>
-        <section id="home" class="section">
-            <div class="home-content">
-                <img href="./source/profile.png" alt="Eka Nadia Aprillina" class="profile-img">
-                <div class="profile-details">
-                    <h1>Eka Nadia Aprillina</h1>
-                    <h2>Graphic Designer & Illustrator</h2>
-                        <p>Dedicated and hardworking graphic design student with knowledge, illustration skills and computer skills which can contribute to the success of company and self-advancement.</p>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <span class="title-icon">🎬</span>
+                    Film & Donghua Manager
+                </h1>
+                <p class="subtitle">Kelola koleksi film dan donghua Anda dengan mudah</p>
+            </div>
+            <button id="addBtn" class="btn btn-primary">
+                <span class="btn-icon">+</span>
+                Tambah Film/Donghua
+            </button>
+        </header>
+
+        <!-- Search and Filter Section -->
+        <div class="search-section">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input"
+                    placeholder="Cari berdasarkan judul, tipe, atau status...">
+            </div>
+            <div class="filter-container">
+                <select id="statusFilter" class="filter-select">
+                    <option value="">Semua Status</option>
+                    <option value="Selesai">Selesai</option>
+                    <option value="Sedang Ditonton">Sedang Ditonton</option>
+                    <option value="Rencana">Rencana</option>
+                    <option value="Ditunda">Ditunda</option>
+                </select>
+                <select id="typeFilter" class="filter-select">
+                    <option value="">Semua Tipe</option>
+                    <option value="Film">Film</option>
+                    <option value="Donghua">Donghua</option>
+                    <option value="Anime">Anime</option>
+                    <option value="Series">Series</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-content">
+                    <p class="stat-label">Total Koleksi</p>
+                    <p class="stat-value" id="totalCount">0</p>
                 </div>
             </div>
-        </section>
-
-        <section id="skills" class="section">
-            <h2>SKILLS</h2>
-            <div class="skills-grid">
-                <!-- Isi skills -->
-                <div class="skill">
-                    <i class="fas fa-layer-group"></i>
-                    <h3>Layout Design</h3>
-                </div>
-                <div class="skill">
-                    <i class="fas fa-paint-brush"></i>
-                    <h3>Illustration Drawing</h3>
-                </div>
-                <div class="skill">
-                    <i class="fas fa-user-secret"></i>
-                    <h3>Character Design</h3>
-                </div>
-                <div class="skill">
-                    <i class="fas fa-box"></i>
-                    <h3>Packaging Design</h3>
-                </div>
-                <div class="skill">
-                    <i class="fas fa-building"></i>
-                    <h3>Corporate Identity Design</h3>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-content">
+                    <p class="stat-label">Selesai</p>
+                    <p class="stat-value" id="completedCount">0</p>
                 </div>
             </div>
-        </section>
-
-        <section id="karya-skills" class="section">
-            <h2>KARYA</h2>
-            <div class="karya-grid">
-                <!-- Isi karya skills -->
-                <div class="karya">
-                    <h3>Adobe</h3>
-                        <p>Ai: ★★★★★</p>
-                        <p>Ps: ★★★★★</p>
-                        <p>Id: ★★★★☆</p>
-                        <p>Pr: ★★★★☆</p>
-                </div>
-                <div class="karya">
-                    <h3>Other karya / Apps</h3>
-                        <p>SAI: ★★★★★</p>
-                        <p>ibis: ★★★★★</p>
+            <div class="stat-card">
+                <div class="stat-icon">▶️</div>
+                <div class="stat-content">
+                    <p class="stat-label">Sedang Ditonton</p>
+                    <p class="stat-value" id="watchingCount">0</p>
                 </div>
             </div>
-        </section>
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <div class="stat-content">
+                    <p class="stat-label">Rencana</p>
+                    <p class="stat-value" id="plannedCount">0</p>
+                </div>
+            </div>
+        </div>
 
-        <section id="education" class="section">
-            <h2>CONTACT</h2>
-            <!-- Isi education -->
-            <ul>
-                <p>Birthdate: 22-7-2000</p>
-                <p>Phone: +60 11 3810 7819</p>
-                <p>Email: ekanadiaaprillina@gmail.com</p>
-                <p>Address: Dusun Kedungwesi Desa Talun Kidul Rt 02 Rw 01 Kecamatan Sumobito Kabupaten Jombang</p>
-            </ul>
-        </section>
-    </main>
+        <!-- Table Section -->
+        <div class="table-container">
+            <table class="data-table" id="dataTable">
+                <thead>
+                    <tr>
+                        <th data-sort="id">ID <span class="sort-icon">↕️</span></th>
+                        <th data-sort="title">Judul <span class="sort-icon">↕️</span></th>
+                        <th data-sort="type">Tipe <span class="sort-icon">↕️</span></th>
+                        <th data-sort="episodes">Episode <span class="sort-icon">↕️</span></th>
+                        <th data-sort="status">Status <span class="sort-icon">↕️</span></th>
+                        <th data-sort="date">Tanggal <span class="sort-icon">↕️</span></th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+            <div id="emptyState" class="empty-state hidden">
+                <div class="empty-icon">📭</div>
+                <h3>Tidak ada data</h3>
+                <p>Belum ada film atau donghua yang ditambahkan. Klik tombol "Tambah Film/Donghua" untuk memulai.</p>
+            </div>
+        </div>
+    </div>
 
-    <footer>
-        <p>&copy; 2024 rizd. All rights reserved.</p>
-    </footer>
+    <!-- Modal for Add/Edit -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Tambah Film/Donghua</h2>
+                <button id="closeModal" class="close-btn">&times;</button>
+            </div>
+            <form id="dataForm" class="data-form">
+                <input type="hidden" id="editId">
+
+                <div class="form-group">
+                    <label for="titleInput" class="form-label">Judul *</label>
+                    <input type="text" id="titleInput" class="form-input" placeholder="Masukkan judul film/donghua"
+                        required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="typeInput" class="form-label">Tipe *</label>
+                        <select id="typeInput" class="form-input" required>
+                            <option value="">Pilih tipe</option>
+                            <option value="Film">Film</option>
+                            <option value="Donghua">Donghua</option>
+                            <option value="Anime">Anime</option>
+                            <option value="Series">Series</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="statusInput" class="form-label">Status *</label>
+                        <select id="statusInput" class="form-input" required>
+                            <option value="">Pilih status</option>
+                            <option value="Selesai">Selesai</option>
+                            <option value="Sedang Ditonton">Sedang Ditonton</option>
+                            <option value="Rencana">Rencana</option>
+                            <option value="Ditunda">Ditunda</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="episodesInput" class="form-label">Jumlah Episode</label>
+                        <input type="number" id="episodesInput" class="form-input" placeholder="12" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateInput" class="form-label">Tanggal</label>
+                        <input type="date" id="dateInput" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notesInput" class="form-label">Catatan</label>
+                    <textarea id="notesInput" class="form-input form-textarea"
+                        placeholder="Tambahkan catatan atau review..." rows="3"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Batal</button>
+                    <button type="submit" class="btn btn-primary">
+                        <span id="submitBtnText">Simpan</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal hidden">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Konfirmasi Hapus</h2>
+                <button id="closeConfirmModal" class="close-btn">&times;</button>
+            </div>
+            <div class="confirm-content">
+                <div class="confirm-icon">⚠️</div>
+                <p>Apakah Anda yakin ingin menghapus item ini?</p>
+                <p class="confirm-subtitle">Tindakan ini tidak dapat dibatalkan.</p>
+            </div>
+            <div class="form-actions">
+                <button id="cancelDeleteBtn" class="btn btn-secondary">Batal</button>
+                <button id="confirmDeleteBtn" class="btn btn-danger">Hapus</button>
+            </div>
+        </div>
+    </div>
 
     <script src="scripts.js"></script>
 </body>
+
 </html>
